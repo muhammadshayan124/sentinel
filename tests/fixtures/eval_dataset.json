@@ -1,0 +1,7 @@
+[
+  {
+    "question": "What does Sentinel ingest?",
+    "expected_source": "sample.txt",
+    "expected_keywords": ["PDFs", "images"]
+  }
+]
