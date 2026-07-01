@@ -1,5 +1,10 @@
 # Sentinel
 
+[![CI](https://github.com/muhammadshayan124/sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/muhammadshayan124/sentinel/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+[![Code style: ruff](https://img.shields.io/badge/lint-ruff-informational.svg)](https://github.com/astral-sh/ruff)
+
 Autonomous multimodal RAG agent — with retrieval evals, tracing, and CI/CD baked in from
 the start, not bolted on after a demo worked.
 
@@ -71,7 +76,7 @@ flowchart LR
 
 ```bash
 pip install -e ".[dev]"
-export ANTHROPIC_API_KEY=sk-...
+cp .env.example .env   # then fill in ANTHROPIC_API_KEY — never commit .env
 
 sentinel ingest ./data
 sentinel query "What's in the knowledge base?"
@@ -114,6 +119,12 @@ tests/            unit tests for chunking, tools, and eval metrics
 - [ ] Streaming responses over the FastAPI endpoint
 - [ ] Swap-in adapter for a local model backend (Ollama) for offline demos
 
+## Contributing
+
+Issues and PRs are welcome — small, focused changes with a test are the easiest to
+review and merge. Run `ruff check src tests` and `pytest` before opening a PR; CI runs
+both automatically.
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
