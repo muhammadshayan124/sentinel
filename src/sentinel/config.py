@@ -12,6 +12,10 @@ class Settings:
     anthropic_api_key: str | None = os.getenv("ANTHROPIC_API_KEY")
     anthropic_model: str = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
 
+    llm_backend: str = os.getenv("SENTINEL_LLM_BACKEND", "anthropic")
+    ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    ollama_model: str = os.getenv("OLLAMA_MODEL", "llama3.1")
+
     data_dir: Path = Path(os.getenv("SENTINEL_DATA_DIR", "./data")).resolve()
     chroma_dir: Path = Path(os.getenv("SENTINEL_CHROMA_DIR", "./chroma_data")).resolve()
 
