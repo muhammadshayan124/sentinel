@@ -9,7 +9,7 @@ from pathlib import Path
 
 import structlog
 
-from sentinel.agent.llm import AnthropicClient
+from sentinel.agent.llm import get_llm_client
 from sentinel.agent.loop import run_agent
 from sentinel.agent.tools import build_toolset
 from sentinel.eval.dataset import load_eval_dataset
@@ -22,7 +22,7 @@ logger = structlog.get_logger(__name__)
 
 def run_eval(dataset_path: Path, store: VectorStore, report_path: Path | None = None) -> EvalReport:
     cases = load_eval_dataset(dataset_path)
-    llm = AnthropicClient()
+    llm = get_llm_client()
     tools = build_toolset(store)
 
     results: list[CaseResult] = []

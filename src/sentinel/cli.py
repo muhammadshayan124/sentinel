@@ -6,7 +6,7 @@ from pathlib import Path
 
 import typer
 
-from sentinel.agent.llm import AnthropicClient
+from sentinel.agent.llm import get_llm_client
 from sentinel.agent.loop import run_agent
 from sentinel.agent.tools import build_toolset
 from sentinel.config import settings
@@ -36,7 +36,7 @@ def ingest(directory: Path = typer.Argument(settings.data_dir)) -> None:
 def query(question: str) -> None:
     """Ask the agent a question against the ingested knowledge base."""
     store = VectorStore()
-    llm = AnthropicClient()
+    llm = get_llm_client()
     tools = build_toolset(store)
     result = run_agent(question, llm=llm, tools=tools)
     typer.echo(result.answer)

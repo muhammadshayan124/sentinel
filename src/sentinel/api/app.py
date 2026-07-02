@@ -7,7 +7,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from sentinel.agent.llm import AnthropicClient
+from sentinel.agent.llm import get_llm_client
 from sentinel.agent.loop import run_agent
 from sentinel.agent.tools import build_toolset
 from sentinel.ingestion.pipeline import ingest_directory
@@ -52,7 +52,7 @@ def ingest(req: IngestRequest) -> dict[str, int]:
 
 @app.post("/query", response_model=QueryResponse)
 def query(req: QueryRequest) -> QueryResponse:
-    llm = AnthropicClient()
+    llm = get_llm_client()
     tools = build_toolset(_store)
     result = run_agent(req.question, llm=llm, tools=tools)
     return QueryResponse(answer=result.answer, tool_calls_made=result.tool_calls_made)

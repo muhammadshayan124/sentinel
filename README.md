@@ -62,9 +62,10 @@ flowchart LR
   best-effort OCR), chunked with configurable overlap.
 - **Hybrid retrieval** — text and image vectors live in the same Chroma-backed store and
   are queried together for a single question.
-- **Tool-calling agent loop** — a small, dependency-light ReAct implementation on top of
-  the Anthropic API; tools are plain functions paired with their schema so they can't
-  drift out of sync.
+- **Tool-calling agent loop** — a small, dependency-light ReAct implementation; tools are
+  plain functions paired with their schema so they can't drift out of sync.
+- **Pluggable LLM backend** — Anthropic by default, or `SENTINEL_LLM_BACKEND=ollama` to
+  run the same agent loop fully offline against a local model, no API key required.
 - **Evals as a first-class citizen** — retrieval recall@k and answer keyword coverage,
   run against a fixture dataset in CI on every PR.
 - **Observability** — OpenTelemetry tracing around every agent step and tool call,
@@ -88,6 +89,14 @@ Or via Docker:
 
 ```bash
 docker compose up --build
+```
+
+Fully offline, no API key, via a local Ollama model instead:
+
+```bash
+ollama pull llama3.1   # any tool-calling-capable model
+export SENTINEL_LLM_BACKEND=ollama
+sentinel query "What's in the knowledge base?"
 ```
 
 ## Project layout
@@ -117,7 +126,7 @@ tests/            unit tests for chunking, tools, and eval metrics
 
 - [ ] LLM-as-judge eval mode for answer quality beyond keyword coverage
 - [ ] Streaming responses over the FastAPI endpoint
-- [ ] Swap-in adapter for a local model backend (Ollama) for offline demos
+- [x] Swap-in adapter for a local model backend (Ollama) for offline demos
 
 ## Contributing
 
